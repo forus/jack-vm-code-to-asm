@@ -59,10 +59,15 @@ class Not(Command):
     command_name = 'not'
 
 
+segments = { 'argument', 'local', 'static', 'constant', 'this', 'that', 'pointer', 'temp' }
+
+
 class Push(Command):
     command_name = 'push'
 
     def __init__(self, *args):
+        if args[0] not in segments:
+            raise ValueError("Unknown segment '%s'." % args[0])
         self.segment = args[0]
         self.index = int(args[1])
 
@@ -71,5 +76,7 @@ class Pop(Command):
     command_name = 'pop'
 
     def __init__(self, *args):
+        if args[0] not in segments:
+            raise ValueError("Unknown segment '%s'." % args[0])
         self.segment = args[0]
         self.index = int(args[1])

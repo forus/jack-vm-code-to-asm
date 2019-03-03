@@ -105,6 +105,11 @@ class Parser(unittest.TestCase):
                 Push('constant', 1),
             ])
 
+    def test_parse_push_to_unknown_segment(self):
+        with self.assertRaises(ValueError) as ve:
+            next(parse([ 'push unknown 1' ]))
+        self.assertEqual(str(ve.exception), "Unknown segment 'unknown'.")
+
     def test_parse_pop(self):
         self.assertParsesInto(
             [
@@ -113,6 +118,11 @@ class Parser(unittest.TestCase):
             [
                 Pop('constant', 1),
             ])
+
+    def test_parse_pop_to_unknown_segment(self):
+        with self.assertRaises(ValueError) as ve:
+            next(parse([ 'pop unknown 1' ]))
+        self.assertEqual(str(ve.exception), "Unknown segment 'unknown'.")
 
 
 if __name__ == '__main__':
