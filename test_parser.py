@@ -28,6 +28,69 @@ class Parser(unittest.TestCase):
                 Add(),
             ])
 
+    def test_parse_neg(self):
+        self.assertParsesInto(
+            [
+                'neg'
+            ],
+            [
+                Negate(),
+            ])
+
+    def test_parse_eq(self):
+        self.assertParsesInto(
+            [
+                'eq'
+            ],
+            [
+                Equals(),
+            ])
+
+    def test_parse_gt(self):
+        self.assertParsesInto(
+            [
+                'gt'
+            ],
+            [
+                GreaterThan(),
+            ])
+
+    def test_parse_lt(self):
+        self.assertParsesInto(
+            [
+                'lt'
+            ],
+            [
+                LessThan(),
+            ])
+
+    def test_parse_and(self):
+        self.assertParsesInto(
+            [
+                'and'
+            ],
+            [
+                And(),
+            ])
+
+    def test_parse_or(self):
+        self.assertParsesInto(
+            [
+                'or'
+            ],
+            [
+                Or(),
+            ])
+
+    def test_parse_not(self):
+        self.assertParsesInto(
+            [
+                'not'
+            ],
+            [
+                Not(),
+            ])
+
     def test_parse_push(self):
         self.assertParsesInto(
             [

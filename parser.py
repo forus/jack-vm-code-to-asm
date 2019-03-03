@@ -28,6 +28,34 @@ class Add(Command):
     command_name = 'add'
 
 
+class Negate(Command):
+    command_name = 'neg'
+
+
+class Equals(Command):
+    command_name = 'eq'
+
+
+class GreaterThan(Command):
+    command_name = 'gt'
+
+
+class LessThan(Command):
+    command_name = 'lt'
+
+
+class And(Command):
+    command_name = 'and'
+
+
+class Or(Command):
+    command_name = 'or'
+
+
+class Not(Command):
+    command_name = 'not'
+
+
 class Push(Command):
     command_name = 'push'
 
