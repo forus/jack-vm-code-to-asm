@@ -8,7 +8,7 @@ def parse(iterator):
             continue
         parts = command.split(' ')
         command_name = parts.pop(0)
-        cls = Command.find_subclass_by_command_name(command_name)
+        cls = find_subclass_by_command_name(command_name)
         if cls:
             yield cls(*parts)
         else:

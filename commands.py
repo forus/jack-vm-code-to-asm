@@ -1,10 +1,10 @@
-class Command:
-    @classmethod
-    def find_subclass_by_command_name(cls, command_name):
-        for scls in cls.__subclasses__():
-            if scls.command_name == command_name:
-                return scls
+def find_subclass_by_command_name(command_name):
+    for scls in Command.__subclasses__():
+        if scls.command_name == command_name:
+            return scls
 
+
+class Command:
     def __repr__(self):
         return self.__class__.__name__ + str(self.__dict__)
 
