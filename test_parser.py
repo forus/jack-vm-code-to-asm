@@ -35,6 +35,15 @@ class Parser(unittest.TestCase):
             PushCommand('constant', 1),
         ])
 
+    def test_parse_pop(self):
+        inp = [
+            'pop constant 1',
+        ]
+        out = list(parse(inp))
+        self.assertEqual(out, [
+            PopCommand('constant', 1),
+        ])
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -36,5 +36,13 @@ class PushCommand(Command):
         self.index = int(args[1])
 
 
+class PopCommand(Command):
+    command_name = 'pop'
+
+    def __init__(self, *args):
+        self.segment = args[0]
+        self.index = int(args[1])
+
+
 def public_attr_to_value_dict(obj):
     return {attr: getattr(obj, attr) for attr in dir(obj) if not attr.startswith('_') and not callable(getattr(obj, attr))}
