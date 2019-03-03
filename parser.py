@@ -14,10 +14,10 @@ class Command:
                 return scls
 
     def __repr__(self):
-        return self.__class__.__name__ + str(public_attr_to_value_dict(self))
+        return self.__class__.__name__ + str(self.__dict__)
 
     def __eq__(self, other):
-        return type(other) == type(self) and public_attr_to_value_dict(other) == public_attr_to_value_dict(self)
+        return type(other) is type(self) and other.__dict__ == self.__dict__
 
 
 class SubCommand(Command):
@@ -42,7 +42,3 @@ class PopCommand(Command):
     def __init__(self, *args):
         self.segment = args[0]
         self.index = int(args[1])
-
-
-def public_attr_to_value_dict(obj):
-    return {attr: getattr(obj, attr) for attr in dir(obj) if not attr.startswith('_') and not callable(getattr(obj, attr))}
