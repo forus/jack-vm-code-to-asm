@@ -124,6 +124,36 @@ class Parser(unittest.TestCase):
             next(parse([ 'pop unknown 1' ]))
         self.assertEqual(str(ve.exception), "Unknown segment 'unknown'.")
 
+    def test_parse_empty_line(self):
+        self.assertParsesInto(
+            [
+                '',
+            ],
+            [])
+
+    def test_parse_blank_line(self):
+        self.assertParsesInto(
+            [
+                ' ',
+            ],
+            [])
+
+    def test_parse_line_comment(self):
+        self.assertParsesInto(
+            [
+                '//Comment comes here',
+            ],
+            [])
+
+    def test_parse_line_with_extra_spaces_and_comment(self):
+        self.assertParsesInto(
+            [
+                ' push  constant  1 //Comment comes here',
+            ],
+            [
+                Push('constant', 1)
+            ])
+
 
 if __name__ == '__main__':
     unittest.main()
