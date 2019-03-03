@@ -20,15 +20,15 @@ class Command:
         return type(other) is type(self) and other.__dict__ == self.__dict__
 
 
-class SubCommand(Command):
+class Sub(Command):
     command_name = 'sub'
 
 
-class AddCommand(Command):
+class Add(Command):
     command_name = 'add'
 
 
-class PushCommand(Command):
+class Push(Command):
     command_name = 'push'
 
     def __init__(self, *args):
@@ -36,7 +36,7 @@ class PushCommand(Command):
         self.index = int(args[1])
 
 
-class PopCommand(Command):
+class Pop(Command):
     command_name = 'pop'
 
     def __init__(self, *args):

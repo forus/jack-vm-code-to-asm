@@ -16,7 +16,7 @@ class Parser(unittest.TestCase):
                 'sub'
             ],
             [
-                SubCommand(),
+                Sub(),
             ])
 
     def test_parse_add(self):
@@ -25,7 +25,7 @@ class Parser(unittest.TestCase):
                 'add'
             ],
             [
-                AddCommand(),
+                Add(),
             ])
 
     def test_parse_push(self):
@@ -34,7 +34,7 @@ class Parser(unittest.TestCase):
                 'push constant 1',
             ],
             [
-                PushCommand('constant', 1),
+                Push('constant', 1),
             ])
 
     def test_parse_pop(self):
@@ -43,7 +43,7 @@ class Parser(unittest.TestCase):
                 'pop constant 1',
             ],
             [
-                PopCommand('constant', 1),
+                Pop('constant', 1),
             ])
 
 
