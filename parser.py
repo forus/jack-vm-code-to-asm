@@ -3,7 +3,10 @@ def parse(iterator):
         parts = command.split(' ')
         command_name = parts.pop(0)
         cls = Command.find_subclass_by_command_name(command_name)
-        yield cls(*parts)
+        if cls:
+            yield cls(*parts)
+        else:
+            raise ValueError("Unknown command '%s'." % command_name)
 
 
 class Command:

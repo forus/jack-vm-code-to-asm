@@ -91,6 +91,11 @@ class Parser(unittest.TestCase):
                 Not(),
             ])
 
+    def test_parse_unknown(self):
+        with self.assertRaises(ValueError) as ve:
+            next(parse([ 'unknown' ]))
+        self.assertEqual(str(ve.exception), "Unknown command 'unknown'.")
+
     def test_parse_push(self):
         self.assertParsesInto(
             [
