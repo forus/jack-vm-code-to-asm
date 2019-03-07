@@ -25,18 +25,45 @@ def _pop_command(command):
         raise ValueError('Unknown segment %s' % command.segment)
 
 
+def _sub_command(command):
+    return (_pop_from_stack_to_d_register() +
+        [
+            '@R5',
+            'M=D',
+        ] + _pop_from_stack_to_d_register() +
+        [
+            '@R5',
+            'D=M-D',
+        ] + _push_d_register_to_stack())
+
+
+def _add_command(command):
+    return (_pop_from_stack_to_d_register() +
+        [
+            '@R5',
+            'M=D',
+        ] + _pop_from_stack_to_d_register() +
+        [
+            '@R5',
+            'D=D+M',
+        ] + _push_d_register_to_stack())
+
+
 _command_to_translation = {
     Push: _push_command,
     Pop: _pop_command,
+    Sub: _sub_command,
+    Add: _add_command,
 }
 
 
 _segment_to_address = {
     'argument': 'ARG',
     'local': 'LCL',
-    'static': '16',
+    'static': 'R16',
     'this': 'THIS',
     'that': 'THAT',
+    'temp': 'R5',
 }
 
 
@@ -96,12 +123,17 @@ def _pop(segment, index):
 
 
 def _pop_from_stack_to_r13_ref():
+    return _pop_from_stack_to_d_register() + [
+        '@R13',
+        'A=M',
+        'M=D',
+    ]
+
+
+def _pop_from_stack_to_d_register():
     return [
         '@SP',
         'M=M-1',
         'A=M',
         'D=M',
-        '@R13',
-        'A=M',
-        'M=D',
     ]
