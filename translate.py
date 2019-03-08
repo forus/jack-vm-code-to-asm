@@ -31,27 +31,25 @@ def _pop_command(command):
 
 
 def _sub_command(command):
-    return (_pop_from_stack_to_d_register() +
-        [
-            '@R14',
-            'M=D',
-        ] + _pop_from_stack_to_d_register() +
-        [
-            '@R14',
-            'D=D-M',
-        ] + _push_d_register_to_stack())
+    return [
+            '@SP',
+            'M=M-1',
+            'A=M',
+            'D=M',
+            'A=A-1',
+            'M=M-D',
+    ]
 
 
 def _add_command(command):
-    return (_pop_from_stack_to_d_register() +
-        [
-            '@R14',
-            'M=D',
-        ] + _pop_from_stack_to_d_register() +
-        [
-            '@R14',
-            'D=D+M',
-        ] + _push_d_register_to_stack())
+    return [
+            '@SP',
+            'M=M-1',
+            'A=M',
+            'D=M',
+            'A=A-1',
+            'M=M+D',
+    ]
 
 
 _command_to_translation = {
