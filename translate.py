@@ -35,24 +35,24 @@ def _pop_command(command):
 
 
 def _sub_command(command):
-    return [
-            '@SP',
-            'M=M-1',
-            'A=M',
-            'D=M',
-            'A=A-1',
+    return _read_operands_to_m_and_d() + [
             'M=M-D',
     ]
 
 
 def _add_command(command):
+    return _read_operands_to_m_and_d() + [
+            'M=M+D',
+    ]
+
+
+def _read_operands_to_m_and_d():
     return [
             '@SP',
             'M=M-1',
             'A=M',
             'D=M',
             'A=A-1',
-            'M=M+D',
     ]
 
 
