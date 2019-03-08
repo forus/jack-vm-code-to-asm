@@ -17,6 +17,8 @@ def _push_command(command):
         return _push(_segment_to_pointer[command.segment], command.index, pointer=True)
     if command.segment == 'constant':
         return _push_constant(command.index)
+    if command.segment == 'pointer':
+        return _push_pointer(command.index)
     else:
         raise ValueError('Unknown segment %s' % command.segment)
 
@@ -26,6 +28,8 @@ def _pop_command(command):
         return _pop(_segment_to_address[command.segment], command.index, pointer=False)
     if command.segment in _segment_to_pointer:
         return _pop(_segment_to_pointer[command.segment], command.index, pointer=True)
+    if command.segment == 'pointer':
+        return _pop_pointer(command.index)
     else:
         raise ValueError('Unknown segment %s' % command.segment)
 
@@ -76,10 +80,26 @@ _segment_to_address = {
 
 def _push_constant(const):
     return [
-        # save const to D register
+        # save const to d register
         '@' + str(const),
         'D=A',
     ] + _push_d_register_to_stack()
+
+
+def _push_pointer(pointer):
+    return [
+        '@' + ('THIS' if pointer == 0 else 'THAT'),
+        'D=M',
+    ] + _push_d_register_to_stack()
+
+
+def _pop_pointer(pointer):
+    return [
+        '@' + ('THIS' if pointer == 0 else 'THAT'),
+        'D=A',
+        '@R13',
+        'M=D',
+   ] + _pop_from_stack_to_r13_ref()
 
 
 def _push(segment, index, pointer=True):
